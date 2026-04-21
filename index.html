@@ -1,0 +1,1562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HP Savannahs — High Percentage F1</title>
+<link rel="icon" type="image/png" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800;900&family=Archivo+Black&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #CE1141;
+    --red-bright: #E31837;
+    --red-deep: #8B0A2A;
+    --black: #000000;
+    --ink: #0A0A0A;
+    --smoke: #141414;
+    --bone: #F4F1EC;
+    --paper: #FAF8F4;
+    --chrome: #C0BFBC;
+    --hairline: rgba(244, 241, 236, 0.14);
+    --hairline-dark: rgba(0, 0, 0, 0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Archivo', sans-serif;
+    background: var(--black);
+    color: var(--bone);
+    overflow-x: hidden;
+    font-feature-settings: 'ss01', 'ss02';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.06;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='200' height='200' filter='url(%23n)' opacity='0.9'/></svg>");
+  }
+
+  /* ==== NAVIGATION ==== */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    padding: 20px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0) 100%);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    transition: background 0.4s ease;
+  }
+  nav.scrolled {
+    background: rgba(0,0,0,0.92);
+    backdrop-filter: blur(16px);
+    padding: 14px 32px;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    text-decoration: none;
+    color: var(--bone);
+  }
+  .nav-logo img {
+    height: 44px;
+    width: auto;
+    display: block;
+  }
+  .nav-logo .word {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 800;
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+  }
+  .nav-menu {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+  }
+  .nav-menu a {
+    color: var(--bone);
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    position: relative;
+    padding: 4px 0;
+    transition: color 0.3s ease;
+  }
+  .nav-menu a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 100%;
+    height: 1px;
+    background: var(--red);
+    transition: right 0.4s cubic-bezier(0.7, 0, 0.3, 1);
+  }
+  .nav-menu a:hover::after { right: 0; }
+  .nav-cta {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    padding: 11px 22px;
+    border: 1px solid var(--bone);
+    color: var(--bone);
+    text-decoration: none;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .nav-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--red);
+    transform: translateY(100%);
+    transition: transform 0.35s cubic-bezier(0.7, 0, 0.3, 1);
+    z-index: -1;
+  }
+  .nav-cta:hover { border-color: var(--red); }
+  .nav-cta:hover::before { transform: translateY(0); }
+
+  /* ==== HERO ==== */
+  .hero {
+    min-height: 100vh;
+    position: relative;
+    background: var(--black);
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    padding: 140px 32px 32px;
+  }
+
+  /* Meta strip at top of hero */
+  .hero-meta {
+    position: absolute;
+    top: 110px;
+    left: 32px;
+    right: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--chrome);
+    z-index: 3;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .hero-meta-col { display: flex; flex-direction: column; gap: 4px; }
+  .hero-meta-col.right { text-align: right; }
+  .hero-meta-label {
+    color: rgba(192, 191, 188, 0.5);
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .hero-meta-value { color: var(--bone); }
+  .hero-meta-value.red { color: var(--red-bright); }
+
+  /* Hero image backdrop */
+  .hero-image-wrap {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    overflow: hidden;
+  }
+  .hero-image {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%) scale(1.02);
+    width: 68%;
+    height: 96%;
+    background-image: url('assets/snow2.png');
+    background-size: cover;
+    background-position: center;
+    z-index: 2;
+    filter: saturate(1.05) contrast(1.05);
+  }
+  .hero-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 55%, rgba(0,0,0,0.65) 100%);
+  }
+
+  /* Huge display type — splits around the cat */
+  .hero-display {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    pointer-events: none;
+  }
+  .hero-display.top {
+    top: 18vh;
+    z-index: 1;
+  }
+  .hero-display.bottom {
+    bottom: 10vh;
+    z-index: 3;
+  }
+  .hero-word {
+    font-family: 'Anton', sans-serif;
+    font-weight: 400;
+    color: var(--red);
+    font-size: clamp(100px, 22vw, 340px);
+    line-height: 0.85;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+    padding: 0 32px;
+    mix-blend-mode: normal;
+  }
+  .hero-word.bone { color: var(--bone); }
+  .hero-word.outline {
+    color: transparent;
+    -webkit-text-stroke: 2px var(--bone);
+    text-stroke: 2px var(--bone);
+  }
+
+  /* Hero footer row */
+  .hero-footer {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: end;
+    gap: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--hairline);
+  }
+  .hero-byline {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: clamp(18px, 1.6vw, 24px);
+    line-height: 1.3;
+    color: var(--bone);
+    max-width: 380px;
+    letter-spacing: -0.01em;
+  }
+  .hero-byline .dash { color: var(--red-bright); }
+  .hero-center-emblem {
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    color: var(--chrome);
+    text-transform: uppercase;
+  }
+  .hero-center-emblem .big {
+    font-family: 'Anton', sans-serif;
+    font-size: 34px;
+    letter-spacing: 0.04em;
+    color: var(--red-bright);
+    display: block;
+    line-height: 1;
+    margin-top: 6px;
+    margin-bottom: 6px;
+  }
+  .hero-cta-wrap {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+  }
+  .hero-cta {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 800;
+    font-size: 12px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    padding: 18px 32px;
+    background: var(--red);
+    color: var(--bone);
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.3s cubic-bezier(0.7, 0, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--bone);
+    transform: translateX(-101%);
+    transition: transform 0.4s cubic-bezier(0.7, 0, 0.3, 1);
+  }
+  .hero-cta span { position: relative; z-index: 1; transition: color 0.3s ease; }
+  .hero-cta:hover::before { transform: translateX(0); }
+  .hero-cta:hover span { color: var(--black); }
+  .hero-cta-arrow {
+    display: inline-block;
+    transition: transform 0.4s cubic-bezier(0.7, 0, 0.3, 1);
+  }
+  .hero-cta:hover .hero-cta-arrow { transform: translateX(6px); }
+
+  /* Ticker */
+  .ticker {
+    position: relative;
+    padding: 14px 0;
+    background: var(--red);
+    overflow: hidden;
+    border-top: 1px solid var(--black);
+    border-bottom: 1px solid var(--black);
+    z-index: 10;
+  }
+  .ticker-track {
+    display: inline-flex;
+    white-space: nowrap;
+    animation: ticker 42s linear infinite;
+    gap: 32px;
+  }
+  .ticker-item {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--black);
+    display: inline-flex;
+    align-items: center;
+    gap: 32px;
+  }
+  .ticker-item::after {
+    content: '✕';
+    color: var(--black);
+    font-size: 10px;
+    opacity: 0.5;
+  }
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ==== MANIFESTO SECTION ==== */
+  .manifesto {
+    background: var(--bone);
+    color: var(--ink);
+    padding: 140px 32px 140px;
+    position: relative;
+  }
+  .manifesto::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 32px; right: 32px;
+    height: 1px;
+    background: var(--hairline-dark);
+  }
+  .manifesto-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 80px;
+  }
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--red);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 32px;
+  }
+  .section-label::before {
+    content: '';
+    width: 36px;
+    height: 1px;
+    background: var(--red);
+  }
+  .section-label-white { color: var(--bone); }
+  .section-label-white::before { background: var(--red-bright); }
+
+  .manifesto-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(10,10,10,0.5);
+    margin-bottom: 18px;
+  }
+  .manifesto-quote {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: clamp(32px, 4vw, 64px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .manifesto-quote .em { color: var(--red); }
+  .manifesto-attribution {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--hairline-dark);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(10,10,10,0.6);
+  }
+
+  /* ==== BREED / HIGH PERCENTAGE SECTION ==== */
+  .breed {
+    background: var(--black);
+    padding: 140px 32px;
+    position: relative;
+  }
+  .breed-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  .breed-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    margin-bottom: 80px;
+    align-items: start;
+  }
+  .breed-title {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(80px, 14vw, 220px);
+    line-height: 0.82;
+    letter-spacing: -0.035em;
+    text-transform: uppercase;
+    color: var(--bone);
+  }
+  .breed-title .red { color: var(--red-bright); display: block; }
+  .breed-title .serif {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--bone);
+    letter-spacing: -0.01em;
+  }
+  .breed-copy {
+    padding-top: 60px;
+    font-size: 16px;
+    line-height: 1.65;
+    color: rgba(244, 241, 236, 0.72);
+    max-width: 440px;
+  }
+  .breed-copy p { margin-bottom: 20px; }
+  .breed-copy p:first-child::first-letter {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 60px;
+    float: left;
+    line-height: 0.9;
+    padding-right: 10px;
+    padding-top: 6px;
+    color: var(--red-bright);
+  }
+
+  /* Stats row */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--hairline);
+    border-top: 1px solid var(--hairline);
+    border-bottom: 1px solid var(--hairline);
+  }
+  .stat {
+    background: var(--black);
+    padding: 48px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    transition: background 0.4s ease;
+    cursor: default;
+  }
+  .stat:hover { background: var(--smoke); }
+  .stat-num {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(60px, 7vw, 110px);
+    line-height: 0.85;
+    color: var(--bone);
+    letter-spacing: -0.03em;
+  }
+  .stat-num .unit {
+    color: var(--red-bright);
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 0.5em;
+    vertical-align: super;
+  }
+  .stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(244, 241, 236, 0.5);
+  }
+  .stat-detail {
+    font-size: 13px;
+    line-height: 1.5;
+    color: rgba(244, 241, 236, 0.7);
+    margin-top: auto;
+  }
+
+  /* ==== THE CATS GALLERY ==== */
+  .cats {
+    background: var(--bone);
+    color: var(--ink);
+    padding: 140px 32px 0;
+    position: relative;
+  }
+  .cats-header {
+    max-width: 1400px;
+    margin: 0 auto 80px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    align-items: end;
+    gap: 80px;
+  }
+  .cats-title {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(80px, 14vw, 220px);
+    line-height: 0.82;
+    letter-spacing: -0.035em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .cats-title .italic {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--red);
+  }
+  .cats-intro {
+    font-size: 15px;
+    line-height: 1.6;
+    color: rgba(10,10,10,0.7);
+    max-width: 380px;
+    padding-bottom: 20px;
+  }
+  .cats-grid {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 24px;
+  }
+  .cat-card {
+    position: relative;
+    overflow: hidden;
+    background: #1a1a1a;
+    cursor: pointer;
+  }
+  .cat-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.7, 0, 0.3, 1);
+    filter: saturate(1.05);
+  }
+  .cat-card:hover .cat-card-img { transform: scale(1.04); }
+  .cat-card-meta {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    color: var(--bone);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    mix-blend-mode: difference;
+    z-index: 2;
+  }
+  .cat-card-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 24px 20px;
+    color: var(--bone);
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%);
+    transform: translateY(30%);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.7, 0, 0.3, 1);
+  }
+  .cat-card:hover .cat-card-info {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  .cat-card-name {
+    font-family: 'Anton', sans-serif;
+    font-size: 38px;
+    line-height: 0.9;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+  }
+  .cat-card-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-top: 8px;
+    color: var(--red-bright);
+  }
+  .cat-card-status {
+    display: inline-block;
+    padding: 4px 10px;
+    background: var(--red);
+    color: var(--bone);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .cat-card-status.reserved { background: var(--ink); }
+  .cat-card-status.available { background: var(--red); }
+
+  /* Custom grid spans */
+  .cat-card.tall { grid-column: span 4; grid-row: span 2; aspect-ratio: 3/4; }
+  .cat-card.wide { grid-column: span 8; aspect-ratio: 16/9; }
+  .cat-card.med-tall { grid-column: span 4; aspect-ratio: 3/4; }
+  .cat-card.square { grid-column: span 4; aspect-ratio: 1; }
+
+  .cats-cta {
+    max-width: 1400px;
+    margin: 80px auto 0;
+    padding: 40px 0;
+    border-top: 1px solid var(--hairline-dark);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .cats-cta-text {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 24px;
+    color: var(--ink);
+    max-width: 500px;
+  }
+  .cats-cta-link {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 800;
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 28px;
+    border: 1px solid var(--ink);
+    transition: all 0.3s ease;
+  }
+  .cats-cta-link:hover {
+    background: var(--red);
+    border-color: var(--red);
+    color: var(--bone);
+  }
+
+  /* ==== FULL BLEED SPLIT ==== */
+  .split-hero {
+    background: var(--black);
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+  }
+  .split-image {
+    background-image: url('assets/snow4.png');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .split-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(0,0,0,0) 60%, rgba(0,0,0,0.6) 100%);
+  }
+  .split-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 64px;
+    position: relative;
+  }
+  .split-quote-num {
+    position: absolute;
+    top: 80px;
+    left: 64px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    color: var(--chrome);
+    text-transform: uppercase;
+  }
+  .split-quote {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: clamp(36px, 4vw, 64px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--bone);
+  }
+  .split-quote .accent { color: var(--red-bright); }
+  .split-quote-footer {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid var(--hairline);
+    display: flex;
+    justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--chrome);
+  }
+
+  /* ==== PROCESS ==== */
+  .process {
+    background: var(--bone);
+    color: var(--ink);
+    padding: 140px 32px;
+  }
+  .process-inner { max-width: 1400px; margin: 0 auto; }
+  .process-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    margin-bottom: 80px;
+    align-items: end;
+  }
+  .process-title {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(80px, 12vw, 180px);
+    line-height: 0.82;
+    letter-spacing: -0.035em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .process-title .red { color: var(--red); }
+  .process-title .italic {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-weight: 400;
+  }
+  .process-intro {
+    font-size: 15px;
+    line-height: 1.6;
+    color: rgba(10,10,10,0.7);
+    max-width: 460px;
+    padding-bottom: 20px;
+  }
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--hairline-dark);
+  }
+  .process-step {
+    padding: 40px 32px 40px 0;
+    border-right: 1px solid var(--hairline-dark);
+    position: relative;
+    transition: background 0.3s ease;
+  }
+  .process-step:last-child { border-right: none; }
+  .process-step:first-child { padding-left: 0; }
+  .process-step:not(:first-child) { padding-left: 32px; }
+  .process-step-num {
+    font-family: 'Anton', sans-serif;
+    font-size: 80px;
+    line-height: 0.85;
+    color: var(--red);
+    margin-bottom: 28px;
+    letter-spacing: -0.03em;
+  }
+  .process-step-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(10,10,10,0.5);
+    margin-bottom: 12px;
+  }
+  .process-step-title {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .process-step-desc {
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgba(10,10,10,0.7);
+  }
+
+  /* ==== JOURNAL ==== */
+  .journal {
+    background: var(--black);
+    padding: 140px 32px;
+  }
+  .journal-inner { max-width: 1400px; margin: 0 auto; }
+  .journal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 64px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .journal-title {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(40px, 5vw, 72px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: var(--bone);
+  }
+  .journal-title .italic {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    color: var(--red-bright);
+  }
+  .journal-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+  .journal-card {
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--bone);
+    display: block;
+  }
+  .journal-card-img {
+    aspect-ratio: 4/5;
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 24px;
+    overflow: hidden;
+    position: relative;
+  }
+  .journal-card-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.2);
+    transition: background 0.4s ease;
+  }
+  .journal-card:hover .journal-card-img::after { background: rgba(206,17,65,0.3); }
+  .journal-card-meta {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(244, 241, 236, 0.5);
+    margin-bottom: 12px;
+  }
+  .journal-card-meta .cat { color: var(--red-bright); }
+  .journal-card-headline {
+    font-family: 'Instrument Serif', serif;
+    font-size: 28px;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin-bottom: 16px;
+    transition: color 0.3s ease;
+  }
+  .journal-card:hover .journal-card-headline { color: var(--red-bright); }
+  .journal-card-excerpt {
+    font-size: 13px;
+    line-height: 1.55;
+    color: rgba(244, 241, 236, 0.6);
+  }
+
+  /* ==== CTA BLOCK ==== */
+  .cta-block {
+    background: var(--red);
+    padding: 120px 32px;
+    position: relative;
+    overflow: hidden;
+    color: var(--bone);
+  }
+  .cta-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+  .cta-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(244, 241, 236, 0.8);
+    margin-bottom: 32px;
+  }
+  .cta-headline {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(80px, 14vw, 240px);
+    line-height: 0.82;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+    color: var(--bone);
+    margin-bottom: 40px;
+  }
+  .cta-headline .italic {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--black);
+  }
+  .cta-sub {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 22px;
+    line-height: 1.4;
+    max-width: 600px;
+    margin: 0 auto 48px;
+    color: rgba(244, 241, 236, 0.9);
+  }
+  .cta-button {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 800;
+    font-size: 14px;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    padding: 24px 56px;
+    background: var(--black);
+    color: var(--bone);
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    transition: all 0.3s cubic-bezier(0.7, 0, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-button::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--bone);
+    transform: translateY(101%);
+    transition: transform 0.4s cubic-bezier(0.7, 0, 0.3, 1);
+  }
+  .cta-button span { position: relative; z-index: 1; transition: color 0.3s ease; }
+  .cta-button:hover::before { transform: translateY(0); }
+  .cta-button:hover span { color: var(--black); }
+
+  .cta-bg-word {
+    position: absolute;
+    font-family: 'Anton', sans-serif;
+    font-size: 38vw;
+    line-height: 0.8;
+    color: var(--red-deep);
+    text-transform: uppercase;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.25;
+    z-index: 1;
+    letter-spacing: -0.05em;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  /* ==== FOOTER ==== */
+  footer {
+    background: var(--black);
+    padding: 80px 32px 40px;
+    border-top: 1px solid var(--hairline);
+  }
+  .footer-inner { max-width: 1400px; margin: 0 auto; }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 64px;
+    padding-bottom: 64px;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .footer-brand img {
+    height: 80px;
+    margin-bottom: 20px;
+    margin-left: -14px;
+    display: block;
+  }
+  .footer-brand-word {
+    font-family: 'Anton', sans-serif;
+    font-size: 28px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--bone);
+    margin-bottom: 16px;
+  }
+  .footer-brand-tag {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: rgba(244, 241, 236, 0.7);
+    max-width: 280px;
+    line-height: 1.4;
+  }
+  .footer-col h4 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--red-bright);
+    margin-bottom: 20px;
+    font-weight: 500;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 10px; }
+  .footer-col a {
+    font-size: 13px;
+    color: rgba(244, 241, 236, 0.7);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    letter-spacing: 0.02em;
+  }
+  .footer-col a:hover { color: var(--bone); }
+  .footer-bottom {
+    padding-top: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(244, 241, 236, 0.4);
+  }
+  .footer-bottom a {
+    color: rgba(244, 241, 236, 0.4);
+    text-decoration: none;
+    margin-left: 24px;
+    transition: color 0.3s ease;
+  }
+  .footer-bottom a:hover { color: var(--red-bright); }
+
+  /* ==== REVEAL ANIMATIONS ==== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.9s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .reveal.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.08s; }
+  .reveal-delay-2 { transition-delay: 0.16s; }
+  .reveal-delay-3 { transition-delay: 0.24s; }
+
+  /* ==== RESPONSIVE ==== */
+  @media (max-width: 900px) {
+    nav { padding: 16px 20px; }
+    .nav-menu { display: none; }
+    .hero { padding: 120px 20px 24px; }
+    .hero-meta { left: 20px; right: 20px; }
+    .hero-footer { grid-template-columns: 1fr; gap: 24px; text-align: left; }
+    .hero-cta-wrap { justify-content: flex-start; }
+    .manifesto-inner, .breed-header, .cats-header, .process-header { grid-template-columns: 1fr; gap: 40px; }
+    .stats, .process-steps { grid-template-columns: repeat(2, 1fr); }
+    .cats-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .cat-card.tall, .cat-card.wide, .cat-card.med-tall, .cat-card.square {
+      grid-column: span 2;
+      grid-row: auto;
+      aspect-ratio: 4/5;
+    }
+    .journal-grid { grid-template-columns: 1fr; gap: 40px; }
+    .split-hero { grid-template-columns: 1fr; height: auto; }
+    .split-image { height: 60vh; }
+    .split-content { padding: 60px 24px; }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+    .manifesto, .breed, .cats, .process, .journal { padding: 80px 20px; }
+    .cats { padding-bottom: 0; }
+    .cta-block { padding: 80px 20px; }
+    .cats-cta { flex-direction: column; align-items: flex-start; gap: 24px; text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== NAV ========== -->
+<nav id="nav">
+  <a href="#" class="nav-logo">
+    <img src="assets/logo.png" alt="HP Savannahs">
+    <span class="word">HP Savannahs</span>
+  </a>
+  <ul class="nav-menu">
+    <li><a href="#breed">The Breed</a></li>
+    <li><a href="#cats">The Cats</a></li>
+    <li><a href="#process">The Process</a></li>
+    <li><a href="#journal">Journal</a></li>
+  </ul>
+  <a href="#apply" class="nav-cta">Request Consideration</a>
+</nav>
+
+<!-- ========== HERO ========== -->
+<header class="hero">
+  <div class="hero-image-wrap">
+    <div class="hero-image"></div>
+  </div>
+
+  <div class="hero-meta">
+    <div class="hero-meta-col">
+      <span class="hero-meta-label">Issue</span>
+      <span class="hero-meta-value">N° 001 — 2026</span>
+    </div>
+    <div class="hero-meta-col">
+      <span class="hero-meta-label">Classification</span>
+      <span class="hero-meta-value red">F1 · 70% +</span>
+    </div>
+    <div class="hero-meta-col">
+      <span class="hero-meta-label">Registry</span>
+      <span class="hero-meta-value">TICA Certified</span>
+    </div>
+    <div class="hero-meta-col right">
+      <span class="hero-meta-label">Access</span>
+      <span class="hero-meta-value">By Application</span>
+    </div>
+  </div>
+
+  <div class="hero-display top reveal">
+    <div class="hero-word">High</div>
+  </div>
+
+  <div class="hero-display bottom reveal reveal-delay-1">
+    <div class="hero-word bone">Percentage</div>
+  </div>
+
+  <div class="hero-footer">
+    <p class="hero-byline reveal reveal-delay-2">
+      Second-generation breeders of <span class="dash">—</span> the most exclusive F1 Savannahs in North America. Raised, not bred.
+    </p>
+    <div class="hero-center-emblem reveal reveal-delay-2">
+      <span>Est. Legacy</span>
+      <span class="big">HP</span>
+      <span>Savannahs</span>
+    </div>
+    <div class="hero-cta-wrap reveal reveal-delay-3">
+      <a href="#apply" class="hero-cta">
+        <span>Begin Application</span>
+        <span class="hero-cta-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ========== TICKER ========== -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="ticker-item">F1 High Percentage</span>
+    <span class="ticker-item">Serval × Savannah</span>
+    <span class="ticker-item">70% Wild Content</span>
+    <span class="ticker-item">By Application Only</span>
+    <span class="ticker-item">TICA Registered</span>
+    <span class="ticker-item">Worldwide Delivery</span>
+    <span class="ticker-item">Lifetime Mentorship</span>
+    <span class="ticker-item">F1 High Percentage</span>
+    <span class="ticker-item">Serval × Savannah</span>
+    <span class="ticker-item">70% Wild Content</span>
+    <span class="ticker-item">By Application Only</span>
+    <span class="ticker-item">TICA Registered</span>
+    <span class="ticker-item">Worldwide Delivery</span>
+    <span class="ticker-item">Lifetime Mentorship</span>
+  </div>
+</div>
+
+<!-- ========== MANIFESTO ========== -->
+<section class="manifesto">
+  <div class="manifesto-inner">
+    <div>
+      <div class="section-label reveal">— 01 / Manifesto</div>
+      <p class="manifesto-eyebrow reveal reveal-delay-1">On the philosophy of the house</p>
+    </div>
+    <div>
+      <h2 class="manifesto-quote reveal reveal-delay-1">
+        "A second-generation breeder <span class="em">who prefers the company</span> of cats to cameras. Born into the work. Raised beside the animal. <span class="em">Answerable to no trend,</span> no marketplace, no auction floor — only to the bloodline."
+      </h2>
+      <div class="manifesto-attribution reveal reveal-delay-2">
+        — The Breeder, on record · Kept anonymous at their request
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== BREED / HIGH PERCENTAGE ========== -->
+<section class="breed" id="breed">
+  <div class="breed-inner">
+    <div class="breed-header">
+      <h2 class="breed-title reveal">
+        What <span class="serif">is</span><br>
+        <span class="red">High&nbsp;%?</span>
+      </h2>
+      <div class="breed-copy reveal reveal-delay-1">
+        <p>The F1 Savannah is the first-generation cross between an African Serval and a domestic cat — the closest a household will come to the real wild without asking permission from a government. Of every F1, only a rare few exceed 70% Serval blood. Those we call High Percentage.</p>
+        <p>HP Savannahs produces fewer than a dozen of these cats a year. Each is raised in the home. Each is socialized from the first breath. Each is placed only once vetted. There is no second-best kitten. There is no clearance litter.</p>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat reveal">
+        <div class="stat-num">70<span class="unit">%+</span></div>
+        <div class="stat-label">Wild Content</div>
+        <div class="stat-detail">Our threshold for the HP designation — substantially above industry norms for F1.</div>
+      </div>
+      <div class="stat reveal reveal-delay-1">
+        <div class="stat-num">F<span class="unit">1</span></div>
+        <div class="stat-label">First Generation</div>
+        <div class="stat-detail">Direct offspring of a Serval sire. We do not breed beyond F1.</div>
+      </div>
+      <div class="stat reveal reveal-delay-2">
+        <div class="stat-num">12</div>
+        <div class="stat-label">Kittens Per Year</div>
+        <div class="stat-detail">A deliberately small program. Scarcity is the product of care, not marketing.</div>
+      </div>
+      <div class="stat reveal reveal-delay-3">
+        <div class="stat-num">2<span class="unit">nd</span></div>
+        <div class="stat-label">Generation Breeder</div>
+        <div class="stat-detail">A craft inherited. A practice refined over decades at one cattery.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== THE CATS ========== -->
+<section class="cats" id="cats">
+  <div class="cats-header">
+    <h2 class="cats-title reveal">
+      The <span class="italic">Current</span><br>Litter
+    </h2>
+    <p class="cats-intro reveal reveal-delay-1">
+      A small, curated release. Each kitten is socialized in the home from day one and reserved only after application review. Availability shifts by the week.
+    </p>
+  </div>
+
+  <div class="cats-grid">
+    <div class="cat-card tall reveal">
+      <img src="assets/standing.jpg" class="cat-card-img" alt="Cat placeholder">
+      <div class="cat-card-meta">
+        <span>01 / HP</span>
+        <span class="cat-card-status available">Available</span>
+      </div>
+      <div class="cat-card-info">
+        <div class="cat-card-name">Tuka</div>
+        <div class="cat-card-tag">Male · F1 · 78% Serval</div>
+      </div>
+    </div>
+    <div class="cat-card wide reveal reveal-delay-1">
+      <img src="assets/snow3.png" class="cat-card-img" alt="Cat placeholder">
+      <div class="cat-card-meta">
+        <span>02 / HP</span>
+        <span class="cat-card-status reserved">Reserved</span>
+      </div>
+      <div class="cat-card-info">
+        <div class="cat-card-name">Azara</div>
+        <div class="cat-card-tag">Female · F1 · 74% Serval</div>
+      </div>
+    </div>
+    <div class="cat-card med-tall reveal reveal-delay-1">
+      <img src="assets/portrait2.jpg" class="cat-card-img" alt="Cat placeholder">
+      <div class="cat-card-meta">
+        <span>03 / HP</span>
+        <span class="cat-card-status available">Available</span>
+      </div>
+      <div class="cat-card-info">
+        <div class="cat-card-name">Kano</div>
+        <div class="cat-card-tag">Male · F1 · 81% Serval</div>
+      </div>
+    </div>
+    <div class="cat-card med-tall reveal reveal-delay-2">
+      <img src="assets/portrait4.jpg" class="cat-card-img" alt="Cat placeholder">
+      <div class="cat-card-meta">
+        <span>04 / HP</span>
+        <span class="cat-card-status reserved">Waitlist</span>
+      </div>
+      <div class="cat-card-info">
+        <div class="cat-card-name">Juno</div>
+        <div class="cat-card-tag">Female · F1 · 76% Serval</div>
+      </div>
+    </div>
+    <div class="cat-card square reveal">
+      <img src="assets/perched.jpg" class="cat-card-img" alt="Cat placeholder">
+      <div class="cat-card-meta">
+        <span>05 / HP</span>
+        <span class="cat-card-status available">Available</span>
+      </div>
+      <div class="cat-card-info">
+        <div class="cat-card-name">Zephyr</div>
+        <div class="cat-card-tag">Male · F1 · 72% Serval</div>
+      </div>
+    </div>
+    <div class="cat-card square reveal reveal-delay-1">
+      <img src="assets/bike.jpg" class="cat-card-img" alt="Cat placeholder">
+      <div class="cat-card-meta">
+        <span>06 / HP</span>
+        <span class="cat-card-status reserved">Reserved</span>
+      </div>
+      <div class="cat-card-info">
+        <div class="cat-card-name">Osei</div>
+        <div class="cat-card-tag">Male · F1 · 79% Serval</div>
+      </div>
+    </div>
+    <div class="cat-card square reveal reveal-delay-2">
+      <img src="assets/snow1.png" class="cat-card-img" alt="Cat placeholder">
+      <div class="cat-card-meta">
+        <span>07 / HP</span>
+        <span class="cat-card-status available">Available</span>
+      </div>
+      <div class="cat-card-info">
+        <div class="cat-card-name">Nyx</div>
+        <div class="cat-card-tag">Female · F1 · 83% Serval</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cats-cta">
+    <p class="cats-cta-text reveal">Current availability is limited. The waitlist is reviewed weekly — the earliest you begin is the earliest we answer.</p>
+    <a href="#apply" class="cats-cta-link reveal reveal-delay-1">View Full Lookbook <span>→</span></a>
+  </div>
+</section>
+
+<!-- ========== SPLIT QUOTE ========== -->
+<section class="split-hero">
+  <div class="split-image"></div>
+  <div class="split-content">
+    <div class="split-quote-num">— Field Note 02</div>
+    <p class="split-quote reveal">
+      "The Savannah does not <span class="accent">perform</span> for you. <br>
+      It <span class="accent">arrives</span>. And the room <br>
+      changes around it."
+    </p>
+    <div class="split-quote-footer reveal reveal-delay-1">
+      <span>Recorded · Bel Air Residence</span>
+      <span>02:14 AM</span>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PROCESS ========== -->
+<section class="process" id="process">
+  <div class="process-inner">
+    <div class="process-header">
+      <h2 class="process-title reveal">
+        The <span class="italic">Process</span><br>
+        <span class="red">No Shortcuts.</span>
+      </h2>
+      <p class="process-intro reveal reveal-delay-1">
+        We do not sell cats. We place them. Each application is reviewed personally — home environment, prior experience, long-term intent. When the fit is right, the conversation begins.
+      </p>
+    </div>
+
+    <div class="process-steps">
+      <div class="process-step reveal">
+        <div class="process-step-num">01</div>
+        <div class="process-step-label">Step One</div>
+        <h3 class="process-step-title">Application</h3>
+        <p class="process-step-desc">A short private form. Your context, your home, your intention. No deposits required at this stage. We respond within 72 hours.</p>
+      </div>
+      <div class="process-step reveal reveal-delay-1">
+        <div class="process-step-num">02</div>
+        <div class="process-step-label">Step Two</div>
+        <h3 class="process-step-title">Consultation</h3>
+        <p class="process-step-desc">A one-on-one call with the breeder. Transparency on bloodline, temperament, care, and the realities of owning a high-percentage cat.</p>
+      </div>
+      <div class="process-step reveal reveal-delay-2">
+        <div class="process-step-num">03</div>
+        <div class="process-step-label">Step Three</div>
+        <h3 class="process-step-title">Placement</h3>
+        <p class="process-step-desc">A kitten is matched — not chosen. The breeder selects the individual animal suited to your life. Reservation is secured privately.</p>
+      </div>
+      <div class="process-step reveal reveal-delay-3">
+        <div class="process-step-num">04</div>
+        <div class="process-step-label">Step Four</div>
+        <h3 class="process-step-title">Delivery & Lifetime</h3>
+        <p class="process-step-desc">White-glove transport worldwide. A relationship, not a transaction — lifetime mentorship for every cat we place.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== JOURNAL ========== -->
+<section class="journal" id="journal">
+  <div class="journal-inner">
+    <div class="journal-header">
+      <h2 class="journal-title reveal">
+        From the <span class="italic">Cattery</span>
+      </h2>
+      <a href="#" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--chrome);text-decoration:none;">View Archive →</a>
+    </div>
+
+    <div class="journal-grid">
+      <a href="#" class="journal-card reveal">
+        <div class="journal-card-img" style="background-image:url('assets/snow2.png');"></div>
+        <div class="journal-card-meta">
+          <span class="cat">Field Notes</span>
+          <span>11 / 2026</span>
+        </div>
+        <h3 class="journal-card-headline">Why we do not breed beyond F1, and why that matters.</h3>
+        <p class="journal-card-excerpt">A note on temperament loss, the limits of generational dilution, and the reason our line stops at one.</p>
+      </a>
+      <a href="#" class="journal-card reveal reveal-delay-1">
+        <div class="journal-card-img" style="background-image:url('assets/portrait3.jpg');"></div>
+        <div class="journal-card-meta">
+          <span class="cat">On Care</span>
+          <span>10 / 2026</span>
+        </div>
+        <h3 class="journal-card-headline">The first ninety days: what to expect at home.</h3>
+        <p class="journal-card-excerpt">Diet, enclosure, enrichment, and the single most common mistake new owners make in the first three months.</p>
+      </a>
+      <a href="#" class="journal-card reveal reveal-delay-2">
+        <div class="journal-card-img" style="background-image:url('assets/car.jpg');"></div>
+        <div class="journal-card-meta">
+          <span class="cat">The Law</span>
+          <span>09 / 2026</span>
+        </div>
+        <h3 class="journal-card-headline">Legality by state: the 2026 map.</h3>
+        <p class="journal-card-excerpt">Which states permit F1 Savannahs, which require permits, and which will ask you to move. Updated quarterly.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CTA BLOCK ========== -->
+<section class="cta-block" id="apply">
+  <div class="cta-bg-word">HP</div>
+  <div class="cta-inner">
+    <div class="cta-eyebrow reveal">— To Begin</div>
+    <h2 class="cta-headline reveal reveal-delay-1">
+      Request<br>
+      <span class="italic">Consideration</span>
+    </h2>
+    <p class="cta-sub reveal reveal-delay-2">
+      We place a limited number of HP Savannahs each year. If you would like to be among them, the door opens here.
+    </p>
+    <a href="#" class="cta-button reveal reveal-delay-3">
+      <span>Begin Application</span>
+      <span>→</span>
+    </a>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="assets/logo.png" alt="HP Savannahs">
+        <div class="footer-brand-word">HP Savannahs</div>
+        <p class="footer-brand-tag">A second-generation cattery. High percentage F1 Savannahs, placed only by application.</p>
+      </div>
+      <div class="footer-col">
+        <h4>The House</h4>
+        <ul>
+          <li><a href="#breed">The Breed</a></li>
+          <li><a href="#cats">The Cats</a></li>
+          <li><a href="#process">The Process</a></li>
+          <li><a href="#journal">Journal</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Inquire</h4>
+        <ul>
+          <li><a href="#apply">Request Consideration</a></li>
+          <li><a href="#">Private Concierge</a></li>
+          <li><a href="#">International</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Follow</h4>
+        <ul>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">TikTok</a></li>
+          <li><a href="#">YouTube</a></li>
+          <li><a href="#">Press</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 HP Savannahs — All rights reserved</span>
+      <div>
+        <a href="#">TICA Certified</a>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Nav background on scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Hero initial reveal
+  window.addEventListener('load', () => {
+    document.querySelectorAll('.hero .reveal').forEach((el, i) => {
+      setTimeout(() => el.classList.add('in'), 100 + i * 80);
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# Editors
+.vscode/
+.idea/
+*.sublime-*
+
+# Node (for future tooling)
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+
+# Build outputs (for future use)
+dist/
+build/
+.next/
+out/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+
+# Misc
+.cache/
