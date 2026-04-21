@@ -223,14 +223,14 @@
     padding: 0;
   }
   .hero-display.bottom {
-    bottom: 10vh;
+    bottom: 16vh;
     z-index: 3;
   }
   .hero-word {
     font-family: 'Anton', sans-serif;
     font-weight: 400;
     color: var(--red);
-    font-size: clamp(100px, 22vw, 340px);
+    font-size: clamp(72px, 17vw, 240px);
     line-height: 0.85;
     letter-spacing: -0.03em;
     text-transform: uppercase;
@@ -1099,10 +1099,16 @@
   @media (max-width: 900px) {
     nav { padding: 16px 20px; }
     .nav-menu { display: none; }
-    .hero { padding: 120px 20px 24px; }
-    .hero-meta { left: 20px; right: 20px; }
-    .hero-footer { grid-template-columns: 1fr; gap: 24px; text-align: left; }
-    .hero-cta-wrap { justify-content: flex-start; }
+    .hero { padding: 110px 20px 32px; }
+    .hero-meta { left: 20px; right: 20px; font-size: 9px; }
+    .hero-meta-col:nth-child(2),
+    .hero-meta-col:nth-child(3) { display: none; }
+    .hero-display.top { top: 19vh; }
+    .hero-display.top .hero-word { font-size: 46vw; }
+    .hero-display.bottom { bottom: 22vh; }
+    .hero-display.bottom .hero-word { font-size: clamp(44px, 13vw, 96px); padding: 0 20px; }
+    .hero-cta-wrap { justify-content: flex-start; width: 100%; }
+    .hero-cta { width: 100%; justify-content: center; padding: 20px 24px; font-size: 11px; }
     .manifesto-inner, .breed-header, .cats-header, .process-header { grid-template-columns: 1fr; gap: 40px; }
     .stats, .process-steps { grid-template-columns: repeat(2, 1fr); }
     .cats-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
