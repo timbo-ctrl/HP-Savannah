@@ -1129,7 +1129,11 @@
 
   /* ==== RESPONSIVE ==== */
   @media (max-width: 900px) {
-    nav { padding: calc(16px + env(safe-area-inset-top, 0px)) 20px 16px; }
+    nav {
+      padding: calc(16px + env(safe-area-inset-top, 0px)) 20px 16px;
+      background: rgba(0, 0, 0, 0.96);
+      border-bottom: 1px solid var(--hairline);
+    }
     nav.scrolled { padding: calc(12px + env(safe-area-inset-top, 0px)) 20px 12px; }
     .hero { padding-top: calc(110px + env(safe-area-inset-top, 0px)); }
     .nav-menu { display: none; }
