@@ -230,7 +230,7 @@
     font-family: 'Anton', sans-serif;
     font-weight: 400;
     color: var(--red);
-    font-size: clamp(72px, 17vw, 240px);
+    font-size: clamp(88px, 20vw, 300px);
     line-height: 0.85;
     letter-spacing: -0.03em;
     text-transform: uppercase;
@@ -601,8 +601,10 @@
     font-size: 10px;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    mix-blend-mode: difference;
     z-index: 2;
+  }
+  .cat-card-meta > span:first-child {
+    mix-blend-mode: difference;
   }
   .cat-card-info {
     position: absolute;
@@ -612,13 +614,6 @@
     padding: 24px 20px;
     color: var(--bone);
     background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%);
-    transform: translateY(30%);
-    opacity: 0;
-    transition: all 0.4s cubic-bezier(0.7, 0, 0.3, 1);
-  }
-  .cat-card:hover .cat-card-info {
-    transform: translateY(0);
-    opacity: 1;
   }
   .cat-card-name {
     font-family: 'Anton', sans-serif;
@@ -1099,16 +1094,23 @@
   @media (max-width: 900px) {
     nav { padding: 16px 20px; }
     .nav-menu { display: none; }
-    .hero { padding: 110px 20px 32px; }
+    .hero { padding: 110px 20px 28px; }
     .hero-meta { left: 20px; right: 20px; font-size: 9px; }
     .hero-meta-col:nth-child(2),
     .hero-meta-col:nth-child(3) { display: none; }
-    .hero-display.top { top: 19vh; }
-    .hero-display.top .hero-word { font-size: 46vw; }
-    .hero-display.bottom { bottom: 22vh; }
-    .hero-display.bottom .hero-word { font-size: clamp(44px, 13vw, 96px); padding: 0 20px; }
-    .hero-cta-wrap { justify-content: flex-start; width: 100%; }
-    .hero-cta { width: 100%; justify-content: center; padding: 20px 24px; font-size: 11px; }
+    .hero-display.top { top: 14vh; }
+    .hero-display.top .hero-word { font-size: 52vw; }
+    .hero-display.bottom { bottom: 16vh; }
+    .hero-display.bottom .hero-word { font-size: clamp(56px, 17vw, 140px); padding: 0 20px; }
+    .hero-cta-wrap { justify-content: flex-end; }
+    .hero-cta { padding: 14px 22px; font-size: 10px; letter-spacing: 0.2em; gap: 8px; }
+    .split-hero { height: auto; }
+    .split-quote-num { position: static; margin-bottom: 24px; }
+    .split-content { padding: 48px 24px; }
+    .cta-block { padding: 72px 20px; }
+    .cta-headline { font-size: clamp(52px, 16vw, 120px); letter-spacing: -0.05em; }
+    .cta-sub { font-size: 17px; }
+    .cta-button { font-size: 12px; padding: 18px 32px; letter-spacing: 0.2em; }
     .manifesto-inner, .breed-header, .cats-header, .process-header { grid-template-columns: 1fr; gap: 40px; }
     .stats, .process-steps { grid-template-columns: repeat(2, 1fr); }
     .cats-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
@@ -1118,13 +1120,11 @@
       aspect-ratio: 4/5;
     }
     .journal-grid { grid-template-columns: 1fr; gap: 40px; }
-    .split-hero { grid-template-columns: 1fr; height: auto; }
+    .split-hero { grid-template-columns: 1fr; }
     .split-image { height: 60vh; }
-    .split-content { padding: 60px 24px; }
     .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
     .manifesto, .breed, .cats, .process, .journal { padding: 80px 20px; }
     .cats { padding-bottom: 0; }
-    .cta-block { padding: 80px 20px; }
     .cats-cta { flex-direction: column; align-items: flex-start; gap: 24px; text-align: left; }
   }
 </style>
@@ -1374,7 +1374,7 @@
       changes around it."
     </p>
     <div class="split-quote-footer reveal reveal-delay-1">
-      <span>Recorded · Bel Air Residence</span>
+      <span>Recorded · Aspen</span>
       <span>02:14 AM</span>
     </div>
   </div>
