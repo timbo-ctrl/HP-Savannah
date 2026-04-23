@@ -21,10 +21,10 @@ Or just open `index.html` directly in a browser.
 
 ## Architecture
 
-All work happens in `index.html`. It's long (~1500 lines) but navigable via consistent section markers — use these instead of scrolling:
+All work happens in `index.html` (~1600 lines) but navigable via consistent section markers — use these instead of scrolling:
 
-- **CSS sections** (inside `<style>`) are delimited by `/* ==== SECTION NAME ==== */` headers (NAVIGATION, HERO, MANIFESTO, BREED, CATS, SPLIT, PROCESS, JOURNAL, CTA, FOOTER, REVEAL ANIMATIONS, RESPONSIVE).
-- **HTML sections** (inside `<body>`) are delimited by `<!-- ========== SECTION NAME ========== -->` headers in the same order. CSS and HTML sections correspond 1:1 — when editing a section, touch both.
+- **CSS sections** (inside `<style>`) are delimited by `/* ==== SECTION NAME ==== */` headers: SPLASH, NAVIGATION, HERO, MANIFESTO SECTION, THE CATS GALLERY, FULL BLEED SPLIT, PROCESS, JOURNAL, CTA BLOCK, FOOTER, REVEAL ANIMATIONS, RESPONSIVE.
+- **HTML sections** (inside `<body>`) are delimited by `<!-- ========== SECTION NAME ========== -->` headers in roughly the same order (plus a TICKER block between HERO and MANIFESTO). CSS and HTML sections correspond when paired — when editing a section, touch both.
 - Grep for the section name (e.g. `==== PROCESS`) to jump to either block.
 
 ### Design tokens
@@ -49,7 +49,10 @@ Responsive rules are consolidated in the final `==== RESPONSIVE ====` CSS block,
 
 ### Assets
 
-`assets/` holds the logo (`logo.png`, referenced as favicon and in nav) plus photography (`portrait*.jpg`, `snow*.png`, `perched.jpg`, `standing.jpg`, `bike.jpg`, `car.jpg`). The `snow*.png` files are 7–9 MB each — be mindful if adding more full-bleed PNGs; prefer JPG for photographs.
+`assets/` holds:
+- Branding — `favicon.svg` (the actual favicon), `logo.png` (nav + footer), `logo-black.svg` (splash screen).
+- Hero — `tuka-heroVIDHIGH.mp4` is the live hero (autoplay/muted/loop `<video>`). `tuka-hero.gif/webp` and the other `tuka-heroVID*` variants are alternate/backup exports left in the repo; don't reference them without pruning the unused ones.
+- Photography — `portrait*.jpg`, `perched.jpg`, `standing.jpg`, `bike.jpg`, `car.jpg`, and `snow*.png`. The `snow*.png` files are 7–9 MB each — prefer JPG for any new photography.
 
 ## Design direction
 
