@@ -6,6 +6,7 @@
 <meta name="theme-color" id="theme-color" content="#ff2800">
 <title>HP Savannahs — High Percentage F1</title>
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="preload" as="image" href="assets/logo-black.svg" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800;900&family=Archivo+Black&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -46,14 +47,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    animation: splashExit 0.9s cubic-bezier(0.76, 0, 0.24, 1) 1.6s forwards;
     will-change: transform;
+  }
+  .splash.exit {
+    animation: splashExit 0.9s cubic-bezier(0.76, 0, 0.24, 1) forwards;
   }
   .splash-logo {
     height: clamp(96px, 16vw, 180px);
     width: auto;
-    animation: splashLogoIn 1.5s cubic-bezier(0.2, 0.7, 0.2, 1) both,
-               splashLogoOut 0.6s cubic-bezier(0.76, 0, 0.24, 1) 1.7s forwards;
+    animation: splashLogoIn 1.2s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .splash.exit .splash-logo {
+    animation: splashLogoOut 0.6s cubic-bezier(0.76, 0, 0.24, 1) forwards;
   }
   @keyframes splashLogoIn {
     0%   { opacity: 0; transform: scale(0.92) translateY(14px); }
@@ -68,7 +73,7 @@
   }
   .splash.done { pointer-events: none; }
   @media (prefers-reduced-motion: reduce) {
-    .splash { animation: splashExit 0.2s ease 0.4s forwards; }
+    .splash.exit { animation: splashExit 0.2s ease forwards; }
     .splash-logo { animation: none; }
   }
 
@@ -250,19 +255,20 @@
     pointer-events: none;
   }
   .hero-display.top {
-    top: 14vh;
-    z-index: 1;
+    top: 58vh;
+    z-index: 4;
   }
   .hero-display.top .hero-word {
     width: 100%;
     text-align: center;
-    font-size: 52vw;
+    font-size: clamp(100px, 15vw, 220px);
     line-height: 0.82;
     letter-spacing: -0.05em;
     padding: 0;
   }
   .hero-display.bottom {
-    bottom: 8vh;
+    top: 72vh;
+    bottom: auto;
     z-index: 3;
   }
   .hero-word {
@@ -1143,10 +1149,10 @@
     .hero-meta { left: 20px; right: 20px; font-size: 9px; }
     .hero-meta-col:nth-child(2),
     .hero-meta-col:nth-child(3) { display: none; }
-    .hero-display.top { top: 14vh; }
-    .hero-display.top .hero-word { font-size: 52vw; }
-    .hero-display.bottom { bottom: 16vh; }
-    .hero-display.bottom .hero-word { font-size: clamp(56px, 17vw, 140px); padding: 0 20px; }
+    .hero-display.top { top: 66vh; }
+    .hero-display.top .hero-word { font-size: 28vw; }
+    .hero-display.bottom { top: 80vh; bottom: auto; }
+    .hero-display.bottom .hero-word { font-size: clamp(48px, 14vw, 120px); padding: 0 20px; }
     .nav-logo .word { font-size: 10px; letter-spacing: 0.18em; }
     .nav-cta {
       padding: 9px 12px;
@@ -1205,7 +1211,7 @@
 <!-- ========== HERO ========== -->
 <header class="hero">
   <div class="hero-image-wrap">
-    <video class="hero-video" src="assets/tuka-heroVIDHIGH.mp4" autoplay muted loop playsinline preload="auto"></video>
+    <video class="hero-video" src="assets/tuka-heroVID.mp4" autoplay muted loop playsinline preload="auto"></video>
   </div>
 
   <div class="hero-meta">
@@ -1587,9 +1593,28 @@
 </footer>
 
 <script>
-  // Splash: swap theme-color to black and remove from DOM when exit finishes
+  // Splash: hold until the hero video is ready (with min hold + max wait fallbacks).
   const splash = document.querySelector('.splash');
+  const heroVideo = document.querySelector('.hero-video');
   if (splash) {
+    const MIN_HOLD_MS = 1400;
+    const MAX_WAIT_MS = 4500;
+    const splashStart = performance.now();
+
+    const videoReady = new Promise((resolve) => {
+      if (!heroVideo || heroVideo.readyState >= 3) return resolve();
+      const done = () => resolve();
+      heroVideo.addEventListener('canplay', done, { once: true });
+      heroVideo.addEventListener('loadeddata', done, { once: true });
+      setTimeout(done, MAX_WAIT_MS);
+    });
+
+    videoReady.then(() => {
+      const elapsed = performance.now() - splashStart;
+      const wait = Math.max(0, MIN_HOLD_MS - elapsed);
+      setTimeout(() => splash.classList.add('exit'), wait);
+    });
+
     splash.addEventListener('animationend', (e) => {
       if (e.animationName !== 'splashExit') return;
       document.getElementById('theme-color').setAttribute('content', '#000000');
