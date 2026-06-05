@@ -194,33 +194,6 @@
     padding: 140px 32px 32px;
   }
 
-  /* Meta strip at top of hero */
-  .hero-meta {
-    position: absolute;
-    top: 110px;
-    left: 32px;
-    right: 32px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    color: rgba(10,10,10,0.56);
-    z-index: 3;
-    padding-bottom: 16px;
-  }
-  .hero-meta-col { display: flex; flex-direction: column; gap: 4px; }
-  .hero-meta-col.right { text-align: right; }
-  .hero-meta-label {
-    color: rgba(10,10,10,0.46);
-    font-size: 9px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-  }
-  .hero-meta-value { color: var(--ink); }
-  .hero-meta-value.red { color: var(--red-bright); }
-
   /* Hero image backdrop */
   .hero-image-wrap {
     position: absolute;
@@ -1104,9 +1077,6 @@
       object-position: 50% center;
       background-position: 50% center;
     }
-    .hero-meta { left: 20px; right: 20px; font-size: 9px; }
-    .hero-meta-col:nth-child(2),
-    .hero-meta-col:nth-child(3) { display: none; }
     .hero-display.top { top: 66vh; }
     .hero-display.top .hero-word { font-size: 28vw; }
     .hero-display.bottom { top: 80vh; bottom: auto; }
@@ -1161,25 +1131,6 @@
 <header class="hero">
   <div class="hero-image-wrap">
     <video class="hero-video" src="assets/whitebg-hero.mp4" autoplay muted loop playsinline preload="auto"></video>
-  </div>
-
-  <div class="hero-meta">
-    <div class="hero-meta-col">
-      <span class="hero-meta-label">Issue</span>
-      <span class="hero-meta-value">N° 001 — 2026</span>
-    </div>
-    <div class="hero-meta-col">
-      <span class="hero-meta-label">Classification</span>
-      <span class="hero-meta-value red">F1 · 70% +</span>
-    </div>
-    <div class="hero-meta-col">
-      <span class="hero-meta-label">Registry</span>
-      <span class="hero-meta-value">TICA Certified</span>
-    </div>
-    <div class="hero-meta-col right">
-      <span class="hero-meta-label">Access</span>
-      <span class="hero-meta-value">By Application</span>
-    </div>
   </div>
 
   <div class="hero-display top reveal">
