@@ -50,15 +50,15 @@
     will-change: transform;
   }
   .splash.exit {
-    animation: splashExit 0.9s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+    animation: splashExit 0.55s cubic-bezier(0.76, 0, 0.24, 1) forwards;
   }
   .splash-logo {
     height: clamp(96px, 16vw, 180px);
     width: auto;
-    animation: splashLogoIn 1.2s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    animation: splashLogoIn 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
   }
   .splash.exit .splash-logo {
-    animation: splashLogoOut 0.6s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+    animation: splashLogoOut 0.35s cubic-bezier(0.76, 0, 0.24, 1) forwards;
   }
   @keyframes splashLogoIn {
     0%   { opacity: 0; transform: scale(0.92) translateY(14px); }
@@ -1647,8 +1647,8 @@
   const splash = document.querySelector('.splash');
   const heroVideo = document.querySelector('.hero-video');
   if (splash) {
-    const MIN_HOLD_MS = 1400;
-    const MAX_WAIT_MS = 4500;
+    const MIN_HOLD_MS = 650;
+    const MAX_WAIT_MS = 1800;
     const splashStart = performance.now();
 
     const videoReady = new Promise((resolve) => {
