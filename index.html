@@ -731,66 +731,6 @@
     color: var(--bone);
   }
 
-  /* ==== FULL BLEED SPLIT ==== */
-  .split-hero {
-    background: var(--black);
-    height: 100vh;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    position: relative;
-  }
-  .split-image {
-    background-image: url('assets/snow4.jpg');
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .split-image::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to right, rgba(0,0,0,0) 60%, rgba(0,0,0,0.6) 100%);
-  }
-  .split-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 80px 64px;
-    position: relative;
-  }
-  .split-quote-num {
-    position: absolute;
-    top: 80px;
-    left: 64px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.22em;
-    color: var(--chrome);
-    text-transform: uppercase;
-  }
-  .split-quote {
-    font-family: 'Instrument Serif', serif;
-    font-style: italic;
-    font-size: clamp(36px, 4vw, 64px);
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    color: var(--bone);
-  }
-  .split-quote .accent { color: var(--red-bright); }
-  .split-quote-footer {
-    margin-top: 48px;
-    padding-top: 24px;
-    border-top: 1px solid var(--hairline);
-    display: flex;
-    justify-content: space-between;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--chrome);
-  }
-
   /* ==== PROCESS ==== */
   .process {
     background: var(--bone);
@@ -1206,9 +1146,6 @@
       white-space: nowrap;
     }
     .hero-footer { justify-content: center; }
-    .split-hero { height: auto; }
-    .split-quote-num { position: static; margin-bottom: 24px; }
-    .split-content { padding: 48px 24px; }
     .cta-block { padding: 72px 20px; }
     .cta-headline { font-size: clamp(52px, 16vw, 120px); letter-spacing: -0.05em; }
     .cta-sub { font-size: 17px; }
@@ -1222,8 +1159,6 @@
       aspect-ratio: 4/5;
     }
     .training-proof { grid-template-columns: 1fr; }
-    .split-hero { grid-template-columns: 1fr; }
-    .split-image { height: 60vh; }
     .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
     .manifesto, .breed, .cats, .process, .training { padding: 80px 20px; }
     .cats { padding-bottom: 0; }
@@ -1467,22 +1402,6 @@
   <div class="cats-cta">
     <p class="cats-cta-text reveal">Current availability is limited. The waitlist is reviewed weekly — the earliest you begin is the earliest we answer.</p>
     <a href="#apply" class="cats-cta-link reveal reveal-delay-1">Inquire About Availability <span>→</span></a>
-  </div>
-</section>
-
-<!-- ========== SPLIT QUOTE ========== -->
-<section class="split-hero">
-  <div class="split-image"></div>
-  <div class="split-content">
-    <div class="split-quote-num">— Field Note 02</div>
-    <p class="split-quote reveal">
-      "The Savannah does not <span class="accent">perform</span> for you. <br>
-      It <span class="accent">arrives</span>. And the room <br>
-      changes around it."
-    </p>
-    <div class="split-quote-footer reveal reveal-delay-1">
-      <span>Recorded · Aspen</span>
-    </div>
   </div>
 </section>
 
