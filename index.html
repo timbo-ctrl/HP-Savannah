@@ -209,7 +209,6 @@
     color: rgba(10,10,10,0.56);
     z-index: 3;
     padding-bottom: 16px;
-    border-bottom: 1px solid var(--hairline-dark);
   }
   .hero-meta-col { display: flex; flex-direction: column; gap: 4px; }
   .hero-meta-col.right { text-align: right; }
@@ -298,7 +297,6 @@
     justify-content: flex-end;
     align-items: end;
     padding-top: 32px;
-    border-top: 1px solid var(--hairline-dark);
   }
   .hero-byline {
     font-family: 'Instrument Serif', serif;
@@ -820,11 +818,16 @@
   }
   .trainer-card {
     border: 1px solid var(--hairline);
-    padding: 40px;
-    min-height: 420px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    overflow: hidden;
+  }
+  .trainer-photo {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
+  .trainer-card-body {
+    padding: 32px;
   }
   .trainer-kicker {
     font-family: 'JetBrains Mono', monospace;
@@ -1368,11 +1371,12 @@
 
     <div class="training-layout">
       <div class="trainer-card reveal">
-        <div>
+        <img class="trainer-photo" src="assets/joseph-cinnante.webp" alt="Joseph Cinnante training a dog" loading="lazy" decoding="async">
+        <div class="trainer-card-body">
           <div class="trainer-kicker">Training Partner</div>
           <h3 class="trainer-name">Joseph Cinnante</h3>
+          <div class="trainer-meta">Cinnante Canine · Founder</div>
         </div>
-        <div class="trainer-meta">Cinnante Canine · Founder</div>
       </div>
 
       <div class="training-copy reveal reveal-delay-1">
