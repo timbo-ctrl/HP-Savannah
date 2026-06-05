@@ -612,87 +612,52 @@
     max-width: 380px;
     padding-bottom: 20px;
   }
-  .cats-grid {
+  .cats-scroller {
     max-width: 1400px;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: 24px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-color: var(--red) rgba(10,10,10,0.14);
+    scrollbar-width: thin;
   }
-  .cat-card {
+  .cats-scroller::-webkit-scrollbar { height: 8px; }
+  .cats-scroller::-webkit-scrollbar-track { background: rgba(10,10,10,0.12); }
+  .cats-scroller::-webkit-scrollbar-thumb { background: var(--red); }
+  .cats-track {
+    display: flex;
+    gap: 24px;
+    width: max-content;
+    padding-bottom: 24px;
+  }
+  .litter-card {
+    flex: 0 0 clamp(300px, 31vw, 460px);
+    aspect-ratio: 3 / 4;
     position: relative;
     overflow: hidden;
-    background: #1a1a1a;
-    cursor: pointer;
+    background: var(--smoke);
+    scroll-snap-align: start;
   }
-  .cat-card-img {
+  .litter-card img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 0.8s cubic-bezier(0.7, 0, 0.3, 1);
     filter: saturate(1.05);
   }
-  .cat-card:hover .cat-card-img { transform: scale(1.04); }
-  .cat-card-meta {
+  .litter-card:hover img { transform: scale(1.035); }
+  .litter-card figcaption {
     position: absolute;
     top: 20px;
     left: 20px;
-    right: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+    z-index: 2;
     color: var(--bone);
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    z-index: 2;
-  }
-  .cat-card-meta > span:first-child {
     mix-blend-mode: difference;
   }
-  .cat-card-info {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 24px 20px;
-    color: var(--bone);
-    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%);
-  }
-  .cat-card-name {
-    font-family: 'Anton', sans-serif;
-    font-size: 38px;
-    line-height: 0.9;
-    text-transform: uppercase;
-    letter-spacing: -0.02em;
-  }
-  .cat-card-tag {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    margin-top: 8px;
-    color: var(--red-bright);
-  }
-  .cat-card-status {
-    display: inline-block;
-    padding: 4px 10px;
-    background: var(--red);
-    color: var(--bone);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-  }
-  .cat-card-status.reserved { background: var(--ink); }
-  .cat-card-status.available { background: var(--red); }
-
-  /* Custom grid spans */
-  .cat-card.tall { grid-column: span 4; grid-row: span 2; aspect-ratio: 3/4; }
-  .cat-card.wide { grid-column: span 8; aspect-ratio: 16/9; }
-  .cat-card.med-tall { grid-column: span 4; aspect-ratio: 3/4; }
-  .cat-card.square { grid-column: span 4; aspect-ratio: 1; }
 
   .cats-cta {
     max-width: 1400px;
@@ -1152,12 +1117,8 @@
     .cta-button { font-size: 12px; padding: 18px 32px; letter-spacing: 0.2em; }
     .manifesto-inner, .breed-header, .cats-header, .process-header, .training-header, .training-layout { grid-template-columns: 1fr; gap: 40px; }
     .stats, .process-steps { grid-template-columns: repeat(2, 1fr); }
-    .cats-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-    .cat-card.tall, .cat-card.wide, .cat-card.med-tall, .cat-card.square {
-      grid-column: span 2;
-      grid-row: auto;
-      aspect-ratio: 4/5;
-    }
+    .cats-track { gap: 14px; }
+    .litter-card { flex-basis: 78vw; }
     .training-proof { grid-template-columns: 1fr; }
     .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
     .manifesto, .breed, .cats, .process, .training { padding: 80px 20px; }
@@ -1319,83 +1280,28 @@
     </p>
   </div>
 
-  <div class="cats-grid">
-    <div class="cat-card tall reveal">
-      <img src="assets/standing.jpg" class="cat-card-img" alt="Cat placeholder" loading="lazy">
-      <div class="cat-card-meta">
-        <span>01 / HP</span>
-        <span class="cat-card-status available">Available</span>
-      </div>
-      <div class="cat-card-info">
-        <div class="cat-card-name">Tuka</div>
-        <div class="cat-card-tag">Male · F1 · 78% Serval</div>
-      </div>
-    </div>
-    <div class="cat-card wide reveal reveal-delay-1">
-      <img src="assets/snow3.jpg" class="cat-card-img" alt="Cat placeholder" loading="lazy">
-      <div class="cat-card-meta">
-        <span>02 / HP</span>
-        <span class="cat-card-status reserved">Reserved</span>
-      </div>
-      <div class="cat-card-info">
-        <div class="cat-card-name">Azara</div>
-        <div class="cat-card-tag">Female · F1 · 74% Serval</div>
-      </div>
-    </div>
-    <div class="cat-card med-tall reveal reveal-delay-1">
-      <img src="assets/portrait2.jpg" class="cat-card-img" alt="Cat placeholder" loading="lazy">
-      <div class="cat-card-meta">
-        <span>03 / HP</span>
-        <span class="cat-card-status available">Available</span>
-      </div>
-      <div class="cat-card-info">
-        <div class="cat-card-name">Kano</div>
-        <div class="cat-card-tag">Male · F1 · 81% Serval</div>
-      </div>
-    </div>
-    <div class="cat-card med-tall reveal reveal-delay-2">
-      <img src="assets/portrait4.jpg" class="cat-card-img" alt="Cat placeholder" loading="lazy">
-      <div class="cat-card-meta">
-        <span>04 / HP</span>
-        <span class="cat-card-status reserved">Waitlist</span>
-      </div>
-      <div class="cat-card-info">
-        <div class="cat-card-name">Juno</div>
-        <div class="cat-card-tag">Female · F1 · 76% Serval</div>
-      </div>
-    </div>
-    <div class="cat-card square reveal">
-      <img src="assets/perched.jpg" class="cat-card-img" alt="Cat placeholder" loading="lazy">
-      <div class="cat-card-meta">
-        <span>05 / HP</span>
-        <span class="cat-card-status available">Available</span>
-      </div>
-      <div class="cat-card-info">
-        <div class="cat-card-name">Zephyr</div>
-        <div class="cat-card-tag">Male · F1 · 72% Serval</div>
-      </div>
-    </div>
-    <div class="cat-card square reveal reveal-delay-1">
-      <img src="assets/bike.jpg" class="cat-card-img" alt="Cat placeholder" loading="lazy">
-      <div class="cat-card-meta">
-        <span>06 / HP</span>
-        <span class="cat-card-status reserved">Reserved</span>
-      </div>
-      <div class="cat-card-info">
-        <div class="cat-card-name">Osei</div>
-        <div class="cat-card-tag">Male · F1 · 79% Serval</div>
-      </div>
-    </div>
-    <div class="cat-card square reveal reveal-delay-2">
-      <img src="assets/snow1.jpg" class="cat-card-img" alt="Cat placeholder" loading="lazy">
-      <div class="cat-card-meta">
-        <span>07 / HP</span>
-        <span class="cat-card-status available">Available</span>
-      </div>
-      <div class="cat-card-info">
-        <div class="cat-card-name">Nyx</div>
-        <div class="cat-card-tag">Female · F1 · 83% Serval</div>
-      </div>
+  <div class="cats-scroller reveal">
+    <div class="cats-track">
+      <figure class="litter-card">
+        <img src="assets/litter1.JPG" alt="Current HP Savannah litter photo 1" decoding="async">
+        <figcaption>01 / 05</figcaption>
+      </figure>
+      <figure class="litter-card">
+        <img src="assets/litter2.JPG" alt="Current HP Savannah litter photo 2" decoding="async">
+        <figcaption>02 / 05</figcaption>
+      </figure>
+      <figure class="litter-card">
+        <img src="assets/litter3.JPG" alt="Current HP Savannah litter photo 3" decoding="async">
+        <figcaption>03 / 05</figcaption>
+      </figure>
+      <figure class="litter-card">
+        <img src="assets/litter4.JPG" alt="Current HP Savannah litter photo 4" decoding="async">
+        <figcaption>04 / 05</figcaption>
+      </figure>
+      <figure class="litter-card">
+        <img src="assets/litter5.jpg" alt="Current HP Savannah litter photo 5" decoding="async">
+        <figcaption>05 / 05</figcaption>
+      </figure>
     </div>
   </div>
 
