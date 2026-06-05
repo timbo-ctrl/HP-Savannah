@@ -872,85 +872,130 @@
     color: rgba(10,10,10,0.7);
   }
 
-  /* ==== JOURNAL ==== */
-  .journal {
+  /* ==== TRAINING ==== */
+  .training {
     background: var(--black);
     padding: 140px 32px;
   }
-  .journal-inner { max-width: 1400px; margin: 0 auto; }
-  .journal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 64px;
-    padding-bottom: 24px;
+  .training-inner { max-width: 1400px; margin: 0 auto; }
+  .training-header {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 80px;
+    align-items: end;
+    margin-bottom: 72px;
+    padding-bottom: 48px;
     border-bottom: 1px solid var(--hairline);
   }
-  .journal-title {
+  .training-title {
     font-family: 'Anton', sans-serif;
-    font-size: clamp(40px, 5vw, 72px);
-    line-height: 1;
-    letter-spacing: -0.02em;
+    font-size: clamp(72px, 10vw, 160px);
+    line-height: 0.84;
+    letter-spacing: -0.035em;
     text-transform: uppercase;
     color: var(--bone);
   }
-  .journal-title .italic {
+  .training-title .italic {
     font-family: 'Instrument Serif', serif;
     font-style: italic;
+    font-weight: 400;
     color: var(--red-bright);
   }
-  .journal-grid {
+  .training-intro {
+    max-width: 520px;
+    font-size: 17px;
+    line-height: 1.65;
+    color: rgba(244, 241, 236, 0.74);
+  }
+  .training-layout {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 80px;
+    align-items: start;
   }
-  .journal-card {
-    cursor: pointer;
-    text-decoration: none;
-    color: var(--bone);
-    display: block;
-  }
-  .journal-card-img {
-    aspect-ratio: 4/5;
-    background-size: cover;
-    background-position: center;
-    margin-bottom: 24px;
-    overflow: hidden;
-    position: relative;
-  }
-  .journal-card-img::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,0.2);
-    transition: background 0.4s ease;
-  }
-  .journal-card:hover .journal-card-img::after { background: rgba(206,17,65,0.3); }
-  .journal-card-meta {
+  .trainer-card {
+    border: 1px solid var(--hairline);
+    padding: 40px;
+    min-height: 420px;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
+  }
+  .trainer-kicker {
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
-    letter-spacing: 0.22em;
+    letter-spacing: 0.24em;
     text-transform: uppercase;
-    color: rgba(244, 241, 236, 0.5);
-    margin-bottom: 12px;
+    color: var(--red-bright);
+    margin-bottom: 24px;
   }
-  .journal-card-meta .cat { color: var(--red-bright); }
-  .journal-card-headline {
+  .trainer-name {
     font-family: 'Instrument Serif', serif;
-    font-size: 28px;
-    line-height: 1.15;
-    letter-spacing: -0.01em;
-    margin-bottom: 16px;
-    transition: color 0.3s ease;
+    font-style: italic;
+    font-size: clamp(44px, 5vw, 72px);
+    line-height: 0.98;
+    color: var(--bone);
+    letter-spacing: -0.02em;
   }
-  .journal-card:hover .journal-card-headline { color: var(--red-bright); }
-  .journal-card-excerpt {
+  .trainer-meta {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--hairline);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(244, 241, 236, 0.55);
+  }
+  .training-copy {
+    display: grid;
+    gap: 28px;
+  }
+  .training-copy p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: rgba(244, 241, 236, 0.72);
+    max-width: 720px;
+  }
+  .training-proof {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--hairline);
+    border: 1px solid var(--hairline);
+    margin-top: 12px;
+  }
+  .proof-item {
+    background: var(--black);
+    padding: 28px 24px;
+  }
+  .proof-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red-bright);
+    margin-bottom: 18px;
+  }
+  .proof-text {
     font-size: 13px;
     line-height: 1.55;
-    color: rgba(244, 241, 236, 0.6);
+    color: rgba(244, 241, 236, 0.68);
   }
+  .training-link {
+    width: fit-content;
+    font-family: 'Archivo', sans-serif;
+    font-weight: 800;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--bone);
+    text-decoration: none;
+    border-bottom: 1px solid var(--red-bright);
+    padding-bottom: 8px;
+    transition: color 0.3s ease;
+  }
+  .training-link:hover { color: var(--red-bright); }
 
   /* ==== CTA BLOCK ==== */
   .cta-block {
@@ -1168,7 +1213,7 @@
     .cta-headline { font-size: clamp(52px, 16vw, 120px); letter-spacing: -0.05em; }
     .cta-sub { font-size: 17px; }
     .cta-button { font-size: 12px; padding: 18px 32px; letter-spacing: 0.2em; }
-    .manifesto-inner, .breed-header, .cats-header, .process-header { grid-template-columns: 1fr; gap: 40px; }
+    .manifesto-inner, .breed-header, .cats-header, .process-header, .training-header, .training-layout { grid-template-columns: 1fr; gap: 40px; }
     .stats, .process-steps { grid-template-columns: repeat(2, 1fr); }
     .cats-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
     .cat-card.tall, .cat-card.wide, .cat-card.med-tall, .cat-card.square {
@@ -1176,11 +1221,11 @@
       grid-row: auto;
       aspect-ratio: 4/5;
     }
-    .journal-grid { grid-template-columns: 1fr; gap: 40px; }
+    .training-proof { grid-template-columns: 1fr; }
     .split-hero { grid-template-columns: 1fr; }
     .split-image { height: 60vh; }
     .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
-    .manifesto, .breed, .cats, .process, .journal { padding: 80px 20px; }
+    .manifesto, .breed, .cats, .process, .training { padding: 80px 20px; }
     .cats { padding-bottom: 0; }
     .cats-cta { flex-direction: column; align-items: flex-start; gap: 24px; text-align: left; }
   }
@@ -1203,7 +1248,7 @@
     <li><a href="#breed">The Breed</a></li>
     <li><a href="#cats">The Cats</a></li>
     <li><a href="#process">The Process</a></li>
-    <li><a href="#journal">Journal</a></li>
+    <li><a href="#training">Training</a></li>
   </ul>
   <a href="#apply" class="nav-cta">Request Consideration</a>
 </nav>
@@ -1280,10 +1325,10 @@
     </div>
     <div>
       <h2 class="manifesto-quote reveal reveal-delay-1">
-        "A second-generation breeder <span class="em">who prefers the company</span> of cats to cameras. Born into the work. Raised beside the animal. <span class="em">Answerable to no trend,</span> no marketplace, no auction floor — only to the bloodline."
+        "A second-generation breeder <span class="em">raised inside the work.</span> Small litters, close handling, and a standard that begins before placement. <span class="em">The point is not more cats.</span> The point is better ones."
       </h2>
       <div class="manifesto-attribution reveal reveal-delay-2">
-        — The Breeder, on record · Kept anonymous at their request
+        — HP Savannahs · Breeding philosophy
       </div>
     </div>
   </div>
@@ -1298,8 +1343,8 @@
         <span class="red">High&nbsp;%?</span>
       </h2>
       <div class="breed-copy reveal reveal-delay-1">
-        <p>The F1 Savannah is the first-generation cross between an African Serval and a domestic cat — the closest a household will come to the real wild without asking permission from a government. Of every F1, only a rare few exceed 70% Serval blood. Those we call High Percentage.</p>
-        <p>HP Savannahs produces fewer than a dozen of these cats a year. Each is raised in the home. Each is socialized from the first breath. Each is placed only once vetted. There is no second-best kitten. There is no clearance litter.</p>
+        <p>The F1 Savannah is the first-generation cross between an African Serval and a domestic cat. Of every F1, only a rare few exceed 70% Serval blood. Those we call High Percentage.</p>
+        <p>HP Savannahs produces fewer than a dozen of these cats a year. Each is raised in the home, handled early, and placed only after application review.</p>
       </div>
     </div>
 
@@ -1421,7 +1466,7 @@
 
   <div class="cats-cta">
     <p class="cats-cta-text reveal">Current availability is limited. The waitlist is reviewed weekly — the earliest you begin is the earliest we answer.</p>
-    <a href="#apply" class="cats-cta-link reveal reveal-delay-1">View Full Lookbook <span>→</span></a>
+    <a href="#apply" class="cats-cta-link reveal reveal-delay-1">Inquire About Availability <span>→</span></a>
   </div>
 </section>
 
@@ -1483,44 +1528,49 @@
   </div>
 </section>
 
-<!-- ========== JOURNAL ========== -->
-<section class="journal" id="journal">
-  <div class="journal-inner">
-    <div class="journal-header">
-      <h2 class="journal-title reveal">
-        From the <span class="italic">Cattery</span>
+<!-- ========== TRAINING ========== -->
+<section class="training" id="training">
+  <div class="training-inner">
+    <div class="training-header">
+      <h2 class="training-title reveal">
+        Trained <span class="italic">Beside</span><br>
+        Dogs
       </h2>
-      <a href="#" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--chrome);text-decoration:none;">View Archive →</a>
+      <p class="training-intro reveal reveal-delay-1">
+        The cats are not raised in isolation. Joseph Cinnante works with HP Savannahs to build early confidence around dogs, handlers, movement, boundaries, and the rhythm of a real home.
+      </p>
     </div>
 
-    <div class="journal-grid">
-      <a href="#" class="journal-card reveal">
-        <div class="journal-card-img" style="background-image:url('assets/snow2.jpg');"></div>
-        <div class="journal-card-meta">
-          <span class="cat">Field Notes</span>
-          <span>11 / 2026</span>
+    <div class="training-layout">
+      <div class="trainer-card reveal">
+        <div>
+          <div class="trainer-kicker">Training Partner</div>
+          <h3 class="trainer-name">Joseph Cinnante</h3>
         </div>
-        <h3 class="journal-card-headline">Why we do not breed beyond F1, and why that matters.</h3>
-        <p class="journal-card-excerpt">A note on temperament loss, the limits of generational dilution, and the reason our line stops at one.</p>
-      </a>
-      <a href="#" class="journal-card reveal reveal-delay-1">
-        <div class="journal-card-img" style="background-image:url('assets/portrait3.jpg');"></div>
-        <div class="journal-card-meta">
-          <span class="cat">On Care</span>
-          <span>10 / 2026</span>
+        <div class="trainer-meta">Cinnante Canine · Founder</div>
+      </div>
+
+      <div class="training-copy reveal reveal-delay-1">
+        <p>Joseph brings more than 25 years of professional animal training experience to the program. His background spans personal protection dogs, competitive teams, police and military K9 work, international seminars, behavior modification, and service-dog development.</p>
+        <p>For HP Savannahs, his role is focused and practical: help the cats develop steadier nerves, clearer boundaries, and more familiarity with well-trained dogs before they leave for their permanent homes.</p>
+
+        <div class="training-proof">
+          <div class="proof-item">
+            <div class="proof-label">25+ Years</div>
+            <p class="proof-text">A career built across advanced obedience, protection work, and owner education.</p>
+          </div>
+          <div class="proof-item">
+            <div class="proof-label">Working Dogs</div>
+            <p class="proof-text">Experience with high-caliber dogs placed into homes, businesses, and K9 units.</p>
+          </div>
+          <div class="proof-item">
+            <div class="proof-label">Cinnante Canine</div>
+            <p class="proof-text">A refined training environment founded in 2023 for dogs and their owners.</p>
+          </div>
         </div>
-        <h3 class="journal-card-headline">The first ninety days: what to expect at home.</h3>
-        <p class="journal-card-excerpt">Diet, enclosure, enrichment, and the single most common mistake new owners make in the first three months.</p>
-      </a>
-      <a href="#" class="journal-card reveal reveal-delay-2">
-        <div class="journal-card-img" style="background-image:url('assets/car.jpg');"></div>
-        <div class="journal-card-meta">
-          <span class="cat">The Law</span>
-          <span>09 / 2026</span>
-        </div>
-        <h3 class="journal-card-headline">Legality by state: the 2026 map.</h3>
-        <p class="journal-card-excerpt">Which states permit F1 Savannahs, which require permits, and which will ask you to move. Updated quarterly.</p>
-      </a>
+
+        <a class="training-link" href="https://cinnantecanine.com/pages/about-joe-cinnante" target="_blank" rel="noopener">About Joseph Cinnante →</a>
+      </div>
     </div>
   </div>
 </section>
@@ -1559,7 +1609,7 @@
           <li><a href="#breed">The Breed</a></li>
           <li><a href="#cats">The Cats</a></li>
           <li><a href="#process">The Process</a></li>
-          <li><a href="#journal">Journal</a></li>
+          <li><a href="#training">Training</a></li>
         </ul>
       </div>
       <div class="footer-col">
