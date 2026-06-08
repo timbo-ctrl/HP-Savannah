@@ -954,6 +954,66 @@
   .cta-button:hover::before { transform: translateY(0); }
   .cta-button:hover span { color: var(--black); }
 
+  /* ==== INQUIRY FORM ==== */
+  .cta-form {
+    max-width: 760px;
+    margin: 8px auto 0;
+    text-align: left;
+  }
+  .cta-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .cta-field { display: flex; flex-direction: column; gap: 8px; }
+  .cta-field.full { grid-column: 1 / -1; }
+  .cta-field label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(244, 241, 236, 0.85);
+  }
+  .cta-field input,
+  .cta-field select,
+  .cta-field textarea {
+    font-family: 'Archivo', sans-serif;
+    font-size: 15px;
+    color: var(--bone);
+    background: rgba(0, 0, 0, 0.14);
+    border: 1px solid rgba(244, 241, 236, 0.35);
+    padding: 14px 16px;
+    width: 100%;
+    border-radius: 0;
+    -webkit-appearance: none;
+    appearance: none;
+    transition: border-color 0.25s ease, background 0.25s ease;
+  }
+  .cta-field textarea { resize: vertical; min-height: 130px; }
+  .cta-field input::placeholder,
+  .cta-field textarea::placeholder { color: rgba(244, 241, 236, 0.45); }
+  .cta-field input:focus,
+  .cta-field select:focus,
+  .cta-field textarea:focus {
+    outline: none;
+    border-color: var(--bone);
+    background: rgba(0, 0, 0, 0.22);
+  }
+  .cta-field select { cursor: pointer; }
+  .cta-field select option { color: var(--ink); }
+  .cta-form-submit { margin-top: 28px; display: flex; justify-content: center; }
+  .cta-form-note {
+    margin-top: 18px;
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--bone);
+    min-height: 18px;
+  }
+  .cta-form-note.error { color: var(--black); }
+  .honeypot { position: absolute; left: -9999px; width: 0; height: 0; opacity: 0; overflow: hidden; }
+
   .cta-bg-word {
     position: absolute;
     font-family: 'Anton', sans-serif;
@@ -1103,6 +1163,7 @@
     .cats-track { gap: 14px; }
     .litter-card { flex-basis: 78vw; }
     .training-proof { grid-template-columns: 1fr; }
+    .cta-form-grid { grid-template-columns: 1fr; }
     .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
     .manifesto, .breed, .cats, .process, .training { padding: 80px 20px; }
     .cats { padding-bottom: 0; }
@@ -1315,10 +1376,49 @@
     <p class="cta-sub reveal reveal-delay-2">
       We place a limited number of HP Savannahs each year. If you would like to be among them, the door opens here.
     </p>
-    <a href="#" class="cta-button reveal reveal-delay-3">
-      <span>Begin Application</span>
-      <span>→</span>
-    </a>
+    <form class="cta-form reveal reveal-delay-3" id="inquiry-form" action="https://formspree.io/f/mlgkbyvw" method="POST">
+      <input type="hidden" name="_subject" value="New HP Savannah Inquiry">
+      <input type="text" name="_gotcha" class="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <div class="cta-form-grid">
+        <div class="cta-field">
+          <label for="f-name">Full Name</label>
+          <input id="f-name" type="text" name="name" placeholder="Your name" required>
+        </div>
+        <div class="cta-field">
+          <label for="f-email">Email</label>
+          <input id="f-email" type="email" name="email" placeholder="you@email.com" required>
+        </div>
+        <div class="cta-field">
+          <label for="f-phone">Phone</label>
+          <input id="f-phone" type="tel" name="phone" placeholder="Optional">
+        </div>
+        <div class="cta-field">
+          <label for="f-location">Location</label>
+          <input id="f-location" type="text" name="location" placeholder="City, Country">
+        </div>
+        <div class="cta-field full">
+          <label for="f-experience">Experience With Hybrids</label>
+          <select id="f-experience" name="experience">
+            <option value="" disabled selected>Select one…</option>
+            <option>New to hybrid cats</option>
+            <option>Owned Savannahs before</option>
+            <option>Owned other exotics</option>
+            <option>Professional / breeder</option>
+          </select>
+        </div>
+        <div class="cta-field full">
+          <label for="f-message">Tell Us About Yourself</label>
+          <textarea id="f-message" name="message" placeholder="Your home, your intent, and what you're looking for in a companion." required></textarea>
+        </div>
+      </div>
+      <div class="cta-form-submit">
+        <button type="submit" class="cta-button">
+          <span>Send Inquiry</span>
+          <span>→</span>
+        </button>
+      </div>
+      <p class="cta-form-note" id="form-note" role="status" aria-live="polite"></p>
+    </form>
   </div>
 </section>
 
@@ -1343,9 +1443,9 @@
         <h4>Inquire</h4>
         <ul>
           <li><a href="#apply">Request Consideration</a></li>
-          <li><a href="#">Private Concierge</a></li>
-          <li><a href="#">International</a></li>
-          <li><a href="#">Contact</a></li>
+          <li><a href="#apply">Private Concierge</a></li>
+          <li><a href="#apply">International</a></li>
+          <li><a href="#apply">Contact</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1422,6 +1522,45 @@
       setTimeout(() => el.classList.add('in'), 100 + i * 80);
     });
   });
+
+  // Inquiry form (Web3Forms) — submits via fetch, shows inline status
+  const inquiryForm = document.getElementById('inquiry-form');
+  if (inquiryForm) {
+    const note = document.getElementById('form-note');
+    const submitBtn = inquiryForm.querySelector('button[type="submit"]');
+    const submitLabel = submitBtn ? submitBtn.querySelector('span') : null;
+    const defaultLabel = submitLabel ? submitLabel.textContent : 'Send Inquiry';
+    inquiryForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      note.classList.remove('error');
+      note.textContent = '';
+      if (submitLabel) submitLabel.textContent = 'Sending…';
+      if (submitBtn) submitBtn.disabled = true;
+      try {
+        const res = await fetch(inquiryForm.action, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: new FormData(inquiryForm),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (res.ok) {
+          inquiryForm.reset();
+          note.textContent = 'Thank you — your inquiry has been sent. We respond within 72 hours.';
+        } else {
+          note.classList.add('error');
+          note.textContent = (data && Array.isArray(data.errors) && data.errors.length)
+            ? data.errors.map((err) => err.message).join(', ')
+            : 'Something went wrong. Please try again or email us directly.';
+        }
+      } catch (err) {
+        note.classList.add('error');
+        note.textContent = 'Network error. Please try again or email us directly.';
+      } finally {
+        if (submitLabel) submitLabel.textContent = defaultLabel;
+        if (submitBtn) submitBtn.disabled = false;
+      }
+    });
+  }
 </script>
 
 </body>
