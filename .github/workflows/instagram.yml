@@ -1,0 +1,66 @@
+name: Sync Instagram
+
+# Pulls the latest @hp.savannah posts into assets/instagram/ and commits them.
+# Runs daily and can be triggered manually from the Actions tab.
+
+on:
+  schedule:
+    - cron: '0 13 * * *' # daily at 13:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: instagram-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Fetch latest Instagram posts
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          IG_LIMIT: '12'
+        run: node scripts/fetch-instagram.mjs
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/instagram
+          if git diff --staged --quiet; then
+            echo "No Instagram changes to commit."
+          else
+            git commit -m "chore: sync Instagram feed"
+            git push
+          fi
+
+      # Keeps the 60-day token alive automatically. Optional: only runs if a
+      # GH_PAT secret (fine-grained PAT with Secrets: read/write) is provided.
+      - name: Refresh access token
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: |
+          if [ -z "$GH_PAT" ]; then
+            echo "GH_PAT not set; skipping automatic token refresh."
+            exit 0
+          fi
+          NEW_TOKEN=$(curl -s "https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=$IG_ACCESS_TOKEN" | node -e "let d='';process.stdin.on('data',c=>d+=c).on('end',()=>{try{console.log(JSON.parse(d).access_token||'')}catch(e){console.log('')}})")
+          if [ -n "$NEW_TOKEN" ]; then
+            echo "$NEW_TOKEN" | GH_TOKEN="$GH_PAT" gh secret set IG_ACCESS_TOKEN --body "$NEW_TOKEN"
+            echo "Access token refreshed."
+          else
+            echo "Token refresh returned no token; leaving existing token in place."
+          fi

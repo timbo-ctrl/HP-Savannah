@@ -760,8 +760,6 @@
     gap: 80px;
     align-items: end;
     margin-bottom: 72px;
-    padding-bottom: 48px;
-    border-bottom: 1px solid var(--hairline);
   }
   .training-title {
     font-family: 'Anton', sans-serif;
@@ -1061,6 +1059,121 @@
   .reveal-delay-2 { transition-delay: 0.16s; }
   .reveal-delay-3 { transition-delay: 0.24s; }
 
+  /* ==== INSTAGRAM ==== */
+  .ig {
+    background: var(--black);
+    color: var(--bone);
+    padding: 140px 32px 140px;
+    border-top: 1px solid var(--hairline);
+  }
+  .ig-inner { max-width: 1400px; margin: 0 auto; }
+  .ig-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 56px;
+  }
+  .ig-title {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(48px, 8vw, 120px);
+    line-height: 0.84;
+    letter-spacing: -0.035em;
+    text-transform: uppercase;
+    color: var(--bone);
+  }
+  .ig-title .italic {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--red);
+  }
+  .ig-handle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--bone);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 22px;
+    border: 1px solid var(--bone);
+    transition: all 0.3s ease;
+  }
+  .ig-handle:hover { background: var(--red); border-color: var(--red); color: var(--bone); }
+  .ig-scroller {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-color: var(--red) rgba(244,241,236,0.14);
+    scrollbar-width: thin;
+  }
+  .ig-scroller::-webkit-scrollbar { height: 8px; }
+  .ig-scroller::-webkit-scrollbar-track { background: rgba(244,241,236,0.12); }
+  .ig-scroller::-webkit-scrollbar-thumb { background: var(--red); }
+  .ig-track {
+    display: flex;
+    gap: 18px;
+    width: max-content;
+    padding-bottom: 24px;
+  }
+  .ig-card {
+    flex: 0 0 clamp(240px, 26vw, 360px);
+    aspect-ratio: 1 / 1;
+    position: relative;
+    overflow: hidden;
+    background: var(--smoke);
+    scroll-snap-align: start;
+    display: block;
+    text-decoration: none;
+  }
+  .ig-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.7, 0, 0.3, 1);
+  }
+  .ig-card:hover img { transform: scale(1.04); }
+  .ig-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0) 45%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  .ig-card:hover::after { opacity: 1; }
+  .ig-card-cap {
+    position: absolute;
+    left: 16px;
+    right: 16px;
+    bottom: 14px;
+    z-index: 2;
+    color: var(--bone);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.04em;
+    line-height: 1.4;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+  .ig-card:hover .ig-card-cap { opacity: 1; transform: translateY(0); }
+  .ig-empty {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: rgba(244,241,236,0.6);
+  }
+
   /* ==== RESPONSIVE ==== */
   @media (max-width: 900px) {
     nav {
@@ -1097,6 +1210,9 @@
     .stats, .process-steps { grid-template-columns: repeat(2, 1fr); }
     .cats-track { gap: 14px; }
     .litter-card { flex-basis: 78vw; }
+    .ig { padding: 80px 20px; }
+    .ig-track { gap: 12px; }
+    .ig-card { flex-basis: 64vw; }
     .training-proof { grid-template-columns: 1fr; }
     .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
     .manifesto, .breed, .cats, .process, .training { padding: 80px 20px; }
@@ -1280,9 +1396,6 @@
         Trained <span class="italic">Beside</span><br>
         Dogs
       </h2>
-      <p class="training-intro reveal reveal-delay-1">
-        Many hybrid cats develop behavioral challenges when they miss critical socialization during early development. Limited exposure can lead to environmental sensitivity, poor adaptability, and difficulty navigating new people, animals, and experiences.
-      </p>
     </div>
 
     <div class="training-layout">
@@ -1296,6 +1409,7 @@
       </div>
 
       <div class="training-copy reveal reveal-delay-1">
+        <p>Many hybrid cats develop behavioral challenges when they miss critical socialization during early development. Limited exposure can lead to environmental sensitivity, poor adaptability, and difficulty navigating new people, animals, and experiences.</p>
         <p>To address this, our kittens are raised at Joseph Cinnante's training ranch, where they receive daily exposure to dogs, children, other pets, livestock, and real-world environments. They also begin harness and leash training early, building confidence with handling, travel, and exploration. The result is a confident, adaptable companion better prepared to thrive in a wide variety of homes and lifestyles.</p>
 
         <div class="training-proof">
@@ -1314,6 +1428,21 @@
         </div>
 
         <a class="training-link" href="https://cinnantecanine.com/pages/about-joe-cinnante" target="_blank" rel="noopener">About Joseph Cinnante →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== INSTAGRAM ========== -->
+<section class="ig" id="instagram">
+  <div class="ig-inner">
+    <div class="ig-header">
+      <h2 class="ig-title reveal">From <span class="italic">the</span> Cattery</h2>
+      <a class="ig-handle reveal reveal-delay-1" href="https://www.instagram.com/hp.savannah/" target="_blank" rel="noopener">@hp.savannah <span>↗</span></a>
+    </div>
+    <div class="ig-scroller reveal reveal-delay-1">
+      <div class="ig-track" id="ig-track">
+        <p class="ig-empty">Loading recent posts…</p>
       </div>
     </div>
   </div>
@@ -1438,6 +1567,32 @@
       setTimeout(() => el.classList.add('in'), 100 + i * 80);
     });
   });
+
+  // Instagram feed (synced into assets/instagram/feed.json by a scheduled GitHub Action)
+  (async () => {
+    const track = document.getElementById('ig-track');
+    if (!track) return;
+    const profile = 'https://www.instagram.com/hp.savannah/';
+    const esc = (s) => (s || '').replace(/[&<>"]/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]));
+    try {
+      const res = await fetch('assets/instagram/feed.json?ts=' + Date.now(), { cache: 'no-store' });
+      if (!res.ok) throw new Error('no feed');
+      const posts = await res.json();
+      if (!Array.isArray(posts) || posts.length === 0) throw new Error('empty');
+      track.innerHTML = posts.map(p => {
+        const href = p.permalink || profile;
+        const cap = esc(p.caption);
+        return `<a class="ig-card" href="${href}" target="_blank" rel="noopener">
+          <img src="assets/instagram/${p.file}" alt="${cap || 'HP Savannah Instagram post'}" loading="lazy" decoding="async">
+          ${cap ? `<span class="ig-card-cap">${cap}</span>` : ''}
+        </a>`;
+      }).join('');
+    } catch (err) {
+      track.innerHTML = `<a class="ig-card" href="${profile}" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;">
+        <span class="ig-empty">Follow @hp.savannah on Instagram →</span>
+      </a>`;
+    }
+  })();
 </script>
 
 </body>
