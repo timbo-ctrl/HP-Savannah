@@ -1104,75 +1104,7 @@
     transition: all 0.3s ease;
   }
   .ig-handle:hover { background: var(--red); border-color: var(--red); color: var(--bone); }
-  .ig-scroller {
-    overflow-x: auto;
-    overscroll-behavior-x: contain;
-    scroll-snap-type: x mandatory;
-    scrollbar-color: var(--red) rgba(244,241,236,0.14);
-    scrollbar-width: thin;
-  }
-  .ig-scroller::-webkit-scrollbar { height: 8px; }
-  .ig-scroller::-webkit-scrollbar-track { background: rgba(244,241,236,0.12); }
-  .ig-scroller::-webkit-scrollbar-thumb { background: var(--red); }
-  .ig-track {
-    display: flex;
-    gap: 18px;
-    width: max-content;
-    padding-bottom: 24px;
-  }
-  .ig-card {
-    flex: 0 0 clamp(240px, 26vw, 360px);
-    aspect-ratio: 1 / 1;
-    position: relative;
-    overflow: hidden;
-    background: var(--smoke);
-    scroll-snap-align: start;
-    display: block;
-    text-decoration: none;
-  }
-  .ig-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.8s cubic-bezier(0.7, 0, 0.3, 1);
-  }
-  .ig-card:hover img { transform: scale(1.04); }
-  .ig-card::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0) 45%);
-    opacity: 0;
-    transition: opacity 0.4s ease;
-  }
-  .ig-card:hover::after { opacity: 1; }
-  .ig-card-cap {
-    position: absolute;
-    left: 16px;
-    right: 16px;
-    bottom: 14px;
-    z-index: 2;
-    color: var(--bone);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.04em;
-    line-height: 1.4;
-    opacity: 0;
-    transform: translateY(6px);
-    transition: opacity 0.4s ease, transform 0.4s ease;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
-    -webkit-box-orient: vertical;
-  }
-  .ig-card:hover .ig-card-cap { opacity: 1; transform: translateY(0); }
-  .ig-empty {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.04em;
-    color: rgba(244,241,236,0.6);
-  }
+  .ig-embed { min-height: 200px; }
 
   /* ==== RESPONSIVE ==== */
   @media (max-width: 900px) {
@@ -1211,8 +1143,6 @@
     .cats-track { gap: 14px; }
     .litter-card { flex-basis: 78vw; }
     .ig { padding: 80px 20px; }
-    .ig-track { gap: 12px; }
-    .ig-card { flex-basis: 64vw; }
     .training-proof { grid-template-columns: 1fr; }
     .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
     .manifesto, .breed, .cats, .process, .training { padding: 80px 20px; }
@@ -1440,10 +1370,10 @@
       <h2 class="ig-title reveal">From <span class="italic">the</span> Cattery</h2>
       <a class="ig-handle reveal reveal-delay-1" href="https://www.instagram.com/hp.savannah/" target="_blank" rel="noopener">@hp.savannah <span>↗</span></a>
     </div>
-    <div class="ig-scroller reveal reveal-delay-1">
-      <div class="ig-track" id="ig-track">
-        <p class="ig-empty">Loading recent posts…</p>
-      </div>
+    <div class="ig-embed reveal reveal-delay-1">
+      <!-- Elfsight Instagram Feed | HP Savannah -->
+      <script src="https://elfsightcdn.com/platform.js" async></script>
+      <div class="elfsight-app-a6e75f21-e5b5-4703-9d60-24217082dcec" data-elfsight-app-lazy></div>
     </div>
   </div>
 </section>
@@ -1567,32 +1497,6 @@
       setTimeout(() => el.classList.add('in'), 100 + i * 80);
     });
   });
-
-  // Instagram feed (synced into assets/instagram/feed.json by a scheduled GitHub Action)
-  (async () => {
-    const track = document.getElementById('ig-track');
-    if (!track) return;
-    const profile = 'https://www.instagram.com/hp.savannah/';
-    const esc = (s) => (s || '').replace(/[&<>"]/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]));
-    try {
-      const res = await fetch('assets/instagram/feed.json?ts=' + Date.now(), { cache: 'no-store' });
-      if (!res.ok) throw new Error('no feed');
-      const posts = await res.json();
-      if (!Array.isArray(posts) || posts.length === 0) throw new Error('empty');
-      track.innerHTML = posts.map(p => {
-        const href = p.permalink || profile;
-        const cap = esc(p.caption);
-        return `<a class="ig-card" href="${href}" target="_blank" rel="noopener">
-          <img src="assets/instagram/${p.file}" alt="${cap || 'HP Savannah Instagram post'}" loading="lazy" decoding="async">
-          ${cap ? `<span class="ig-card-cap">${cap}</span>` : ''}
-        </a>`;
-      }).join('');
-    } catch (err) {
-      track.innerHTML = `<a class="ig-card" href="${profile}" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:center;">
-        <span class="ig-empty">Follow @hp.savannah on Instagram →</span>
-      </a>`;
-    }
-  })();
 </script>
 
 </body>
